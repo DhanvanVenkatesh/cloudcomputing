@@ -1,0 +1,134 @@
+FIREBASE CRUD
+
+LINK: https://youtu.be/SuWcC5N7TWo
+
+CRUD CODE:
+
+var rollV,nameV,genderV,addressV;
+
+function readFom(){
+    rollV=document.getElementById("roll").value;
+    nameV=document.getElementById("name").value;
+    genderV=document.getElementById("gender").value;
+    addressV=document.getElementById("address").value;
+    console.log(rollV,nameV,genderV,addressV);
+}
+
+document.getElementById("insert").onclick = function () {
+    readFom();
+  
+    firebase
+      .database()
+      .ref("student/" + rollV)
+      .set({
+        rollNo: rollV,
+        name: nameV,
+        gender: genderV,
+        address: addressV,
+      });
+    alert("Data Inserted");
+    document.getElementById("roll").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("address").value = "";
+  };
+  
+document.getElementById("read").onclick = function () {
+    readFom();
+  
+    firebase
+      .database()
+      .ref("student/" + rollV)
+      .on("value", function (snap) {
+        document.getElementById("roll").value = snap.val().rollNo;
+        document.getElementById("name").value = snap.val().name;
+        document.getElementById("gender").value = snap.val().gender;
+        document.getElementById("address").value = snap.val().address;
+      });
+  };
+  
+  document.getElementById("update").onclick = function () {
+    readFom();
+  
+    firebase
+      .database()
+      .ref("student/" + rollV)
+      .update({
+        //   rollNo: rollV,
+        name: nameV,
+        gender: genderV,
+        address: addressV,
+      });
+    alert("Data Update");
+    document.getElementById("roll").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("address").value = "";
+  };
+  document.getElementById("delete").onclick = function () {
+    readFom();
+  
+    firebase
+      .database()
+      .ref("student/" + rollV)
+      .remove();
+    alert("Data Deleted");
+    document.getElementById("roll").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("address").value = "";
+  };
+-------------------------------------------------------------------------------------------------------
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD with Firebase</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+  </head>
+  <body>
+    <div class="container">
+      <h2>CRUD with Firebase</h2>
+      <hr />
+      <br />
+      <div class="form">
+        RollNo: <input type="text" name="RollNo" id="roll" /> <br /><br />
+        Name:&nbsp; <input type="text" name="name" id="name" /> <br /><br />
+        Gender: <input type="text" name="gender" id="gender" /> <br /><br />
+        Address: <input type="text" name="Address" id="address" /> <br /><br />
+      </div>
+
+      <div class="buttons">
+        <button id="insert">Insert</button>
+        <button id="read">Read</button>
+        <button id="update">Update</button>
+        <button id="delete">Delete</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+
+    <script src="./firebaseConfig.js"></script>
+
+    <script src="./crud.js"></script>
+  </body>
+</html>
+
+-------------------------------------------------------------------------------------------
+firebaseConfig.js
+
+var firebaseConfig={
+    apiKey: "AIzaSyBwBulnyxH_sVw85zNmFWhqdRkWunKpcmE",
+  authDomain: "cloudmodelexp.firebaseapp.com",
+  databaseURL: "https://cloudmodelexp-default-rtdb.firebaseio.com",
+  projectId: "cloudmodelexp",
+  storageBucket: "cloudmodelexp.appspot.com",
+  messagingSenderId: "649872746597",
+  appId: "1:649872746597:web:d238cc4ecd3f9661027e8c"
+};
+
+firebase.initializeApp(firebaseConfig);
