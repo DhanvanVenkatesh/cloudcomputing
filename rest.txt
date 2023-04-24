@@ -1,0 +1,117 @@
+RESTFul
+
+// npm i body-parser express mysql ejs
+
+XAMPP Server> turn on> create DB (bookstore)> create table (book- having below fields)
+
+
+index.js 
+
+var bodyParser = require("body-parser");
+var express = require("express");
+var sql = require("mysql");
+var app = express();
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+var con = sql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "bookstore",
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("connected");
+});
+
+app.listen(3000);
+console.log("connected to port 3000...");
+app.use(express.static(__dirname + "/"));
+
+app.post("/insert", function (req, res) {
+  bid = req.body.bid;
+  bname = req.body.bname;
+  author = req.body.author;
+  publisher = req.body.publisher;
+  console.log("dov");
+  console.log(bname);
+  con.query(
+    "insert into books values(" +
+      sql.escape(bid) +
+      "," +
+      sql.escape(bname) +
+      "," +
+      sql.escape(author) +
+      "," +
+      sql.escape(publisher) +
+      ")",
+    function (err, response) {
+      if (err) {
+        res.send(err);
+      }
+      res.send(response);
+    }
+  );
+});
+
+app.get("/get/:id", function (req, res, next) {
+  var id = req.params.id;
+  var sql = `SELECT * FROM books WHERE bid=${id}`;
+  console.log(id);
+
+  con.query(sql, function (err, rows, fields) {
+    res.render("editform", { title: "Edit Admin", Admin: rows[0] });
+  });
+});
+
+app.put("/update/:id", function (req, res, next) {
+  var bid = req.params.id;
+  var bname = req.body.bname;
+  con.query(
+    "update books set bname=" +
+      sql.escape(bname) +
+      " where bid=" +
+      sql.escape(bid) +
+      "",
+    function (err, response) {
+      if (err) res.send(err);
+      else {
+        res.send(response);
+      }
+    }
+  );
+});
+
+app.get("/", function (req, res) {
+  con.query("select * from books", function (err, response) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      res.send(response);
+    }
+  });
+});
+
+app.delete("/del/:id", function (req, res) {
+  id = req.params.id;
+  con.query(
+    "delete from books where bid=" + sql.escape(id),
+    function (err, response) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(response);
+      }
+    }
+  );
+});
+
+{
+    "bid":"1",
+    "bname":"jju",
+    "author":"kirumi",
+    "publisher":"moorthy"
+}
