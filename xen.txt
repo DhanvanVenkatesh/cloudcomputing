@@ -1,0 +1,11 @@
+XEN SERVER
+1.	Connect to Xen Server.
+2.	Right click of the xen server and select new VM.
+3.	Select the VM template.
+4.	Provide the name for the virtual Machine and click next.
+5.	Select the server
+6.      Click next and finish setting up the virtual Machine
+7.	Now the VM is created on the server. Right click and choose move VM.
+8.	Now choose the destination server and select move.
+9.	Now the VM is migrated  to another server.
+10.	Finally we can view the  status of the migrated VM in another server
