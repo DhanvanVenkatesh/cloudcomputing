@@ -1,0 +1,21 @@
+KVM 
+
+https://download.cirros-cloud.net/0.6.1/
+
+cirros-0.6.1-x86_64-disk.img  
+
+1. sudo -s
+2. apt-get update
+3. apt-get install qemu-kvm
+4. apt-get install libvirt-bin bridge-utils qemu-system virt-manager
+5. nano /etc/libvirt/libvirtd.conf -> Uncomment listner_adder[sys IP] , ro, rw, dir=> /var/run/libvirt
+6. grep ^[^#] /etc/libvirt/libvirtd.conf-not required 
+7. /etc/init.d/libvirtd restart
+8. /etc/init.d/libvirtd status
+9. virsh list
+10.virt-manager
+
+
+error:
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/lib/dpkg/lock-frontend
