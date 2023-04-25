@@ -1,0 +1,16 @@
+1)sudo -s
+2)apt-get update
+3)apt-get install qemu-kvm   //if(error occurs) --> init 6
+4)apt-get install qemu-system bridge-utils virt-manager libvirt-bin //if(error) sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virt-manager
+5)nano /etc/libvirt/libvirtd.conf:
+                  changes to be made:
+                              1)uncomment listen_addr
+                              2)unix_sock_ro_perms = "0777" same as unix_sock_rw_perms
+                              3)unix_sock_dir = "var/run/libvirt"
+6)grep ^[^#] /etc/libvirt/libvirtd.conf
+7)service libvirtd restart
+8)service libvirtd status (check if active)
+9)virsh list
+10)virt-manager(import existing disk image)
+11)download cirros os 
+12)copy paste image
