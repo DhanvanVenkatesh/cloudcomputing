@@ -1,0 +1,54 @@
+
+apt-get update
+sudo apt-cache search qemu-kvm
+apt-get install qemu-kvm
+
+{
+sudo rm/var/lib/apt/lists/lock
+sudo rm/var/cache/apt/archives/lock
+sudo rm/var/lib/dpkg/lock*
+}
+above varlana error na try these
+{
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/lib/dpkg/lock-frontend
+}
+
+sudo dpkg --configure -a
+sudo apt update
+sudo apt-get install qemu-kvm
+sudo apt-get install libvirt-bin bridge-utils qemu-system virt-manager
+sudo nano /etc/libvirt/libvirtd.conf 
+
+Here one file opens with contents inside it..athula ithelaa uncomment panni change panidu
+
+listen_addr = "0.0.0.0"
+unix_sock_group = "libvirt"
+unix_sock_ro_perms = "0777"
+unix_sock_rw_perms = "0777"
+unix_sock_dir = "/var/run/libvirt"
+auth_unix_ro = "none"
+auth_unix_rw = "none"
+
+To save these: ctrl x+ yes +enter
+
+sudo service libvirtd restart
+sudo apt install virt-manager
+Y
+sudo virt-manager
+
+in firefox search cirros download
+cirros0.6.1 -> 64-disk.img file download karo
+
+
+
+//not nedded if asked
+
+sudo virsh list
+sudo virsh
+          #version
+          #nodeinfo
+          #sudo s
+(error)
+ctrl+c
+Displaying teammateKVM.txt.
